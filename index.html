@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FUSION Unboxed Challenge</title>
+<meta name="description" content="A global community challenge: explore what UiPath announced at FUSION, build something real, and share your honest take. Oct 15–30.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #fa4616;
+    --orange-dark: #d93a0f;
+    --orange-soft: #fff1ec;
+    --ink: #273139;
+    --ink-2: #526069;
+    --black: #0b0d0e;
+    --line: #e3e6e8;
+    --bg: #ffffff;
+    --bg-alt: #f7f8f9;
+    --radius: 12px;
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 64px; }
+  body {
+    margin: 0;
+    font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--orange); }
+  img { max-width: 100%; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+  section { padding: 80px 0; }
+  section.alt { background: var(--bg-alt); }
+  h1, h2, h3 { color: var(--black); line-height: 1.2; margin: 0 0 16px; }
+  h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; }
+  h3 { font-size: 20px; font-weight: 700; }
+  .eyebrow {
+    display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 12px;
+  }
+  .lead { font-size: 18px; color: var(--ink-2); max-width: 720px; margin: 0 0 40px; }
+
+  /* Nav */
+  header.nav {
+    position: sticky; top: 0; z-index: 50; background: rgba(11,13,14,0.96);
+    backdrop-filter: blur(6px); border-bottom: 1px solid #1f2427;
+  }
+  header.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 800; letter-spacing: -0.01em; }
+  .brand-mark { width: 28px; height: 28px; border-radius: 6px; background: var(--orange); display: grid; place-items: center; color: #fff; font-size: 15px; }
+  nav.links { display: flex; gap: 24px; }
+  nav.links a { color: #cfd5d9; text-decoration: none; font-size: 14px; font-weight: 500; }
+  nav.links a:hover { color: #fff; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 15px;
+    text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: background .15s, color .15s;
+  }
+  .btn-primary { background: var(--orange); color: #fff; }
+  .btn-primary:hover { background: var(--orange-dark); }
+  .btn-ghost { border-color: #ffffff55; color: #fff; }
+  .btn-ghost:hover { border-color: #fff; }
+  .btn-sm { padding: 8px 16px; font-size: 14px; }
+  @media (max-width: 860px) { nav.links { display: none; } }
+
+  /* Hero */
+  .hero {
+    background: var(--black); color: #fff; padding: 96px 0 88px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; right: -180px; top: -180px; width: 560px; height: 560px;
+    border-radius: 50%; background: radial-gradient(circle, rgba(250,70,22,.35), rgba(250,70,22,0) 70%);
+  }
+  .hero .wrap { position: relative; }
+  .hero h1 { color: #fff; font-size: clamp(38px, 6.5vw, 72px); font-weight: 800; letter-spacing: -0.03em; max-width: 900px; }
+  .hero h1 span { color: var(--orange); }
+  .hero p { font-size: 19px; color: #c3cacf; max-width: 640px; margin: 0 0 32px; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+  .pill { font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: #1c2124; color: #e6eaec; border: 1px solid #2c3337; }
+  .pill.hot { background: var(--orange); border-color: var(--orange); color: #fff; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .countdown { display: flex; gap: 12px; margin-top: 48px; flex-wrap: wrap; }
+  .cd-box { background: #15191b; border: 1px solid #2c3337; border-radius: 10px; padding: 14px 18px; min-width: 84px; text-align: center; }
+  .cd-num { font-size: 32px; font-weight: 800; color: #fff; display: block; font-variant-numeric: tabular-nums; }
+  .cd-lbl { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #8d989f; }
+  .cd-note { font-size: 13px; color: #8d989f; margin-top: 12px; }
+
+  /* Grids & cards */
+  .grid { display: grid; gap: 20px; }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 960px) { .g4 { grid-template-columns: repeat(2, 1fr); } .g3 { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) { .g4, .g2 { grid-template-columns: 1fr; } section { padding: 56px 0; } }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px;
+  }
+  .card p { margin: 0; color: var(--ink-2); font-size: 15px; }
+  .card .icon {
+    width: 44px; height: 44px; border-radius: 10px; background: var(--orange-soft); color: var(--orange);
+    display: grid; place-items: center; font-size: 22px; margin-bottom: 16px;
+  }
+  .card.product { border-top: 4px solid var(--orange); }
+  .card .tag { display: inline-block; font-size: 12px; font-weight: 700; color: var(--orange); margin-bottom: 6px; }
+
+  /* Steps */
+  .step-num {
+    width: 40px; height: 40px; border-radius: 50%; background: var(--orange); color: #fff; font-weight: 800;
+    display: grid; place-items: center; margin-bottom: 14px;
+  }
+
+  /* Access guide */
+  .access-card { max-width: 760px; padding: 32px; }
+  .access-steps { list-style: none; counter-reset: step; margin: 0 0 28px; padding: 0; }
+  .access-steps li { counter-increment: step; position: relative; padding-left: 58px; margin-bottom: 28px; }
+  .access-steps li:last-child { margin-bottom: 0; }
+  .access-steps li::before {
+    content: counter(step); position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 50%;
+    background: var(--orange); color: #fff; font-weight: 800; display: grid; place-items: center;
+  }
+  .access-steps h3 { margin-bottom: 6px; }
+  .access-steps p { margin: 0; color: var(--ink-2); }
+  .note {
+    margin-top: 12px; border-left: 4px solid var(--orange); background: var(--orange-soft); color: #8a2a0c;
+    border-radius: 6px; padding: 10px 14px; font-size: 14px;
+  }
+
+  /* Prompts */
+  .prompt { display: flex; gap: 14px; align-items: flex-start; }
+  .prompt .emoji { font-size: 26px; line-height: 1; }
+  .prompt p { color: var(--ink); font-weight: 500; }
+
+  /* Entry format */
+  .entry-part { border-left: 4px solid var(--orange); padding: 4px 0 4px 18px; }
+  .entry-part h3 { margin-bottom: 6px; }
+  .entry-part p { margin: 0; color: var(--ink-2); }
+
+  /* Prizes */
+  .prize { background: var(--black); color: #fff; border: none; position: relative; overflow: hidden; }
+  .prize h3 { color: #fff; }
+  .prize p { color: #b7c0c5; }
+  .prize .amt { font-size: 14px; font-weight: 700; color: var(--orange); margin-bottom: 10px; display: block; }
+  .prize .big { font-size: 40px; margin-bottom: 12px; display: block; }
+
+  /* Judging */
+  .bar-row { margin-bottom: 18px; }
+  .bar-head { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 6px; }
+  .bar { height: 10px; background: #eceff1; border-radius: 999px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--orange); border-radius: 999px; }
+
+  /* Timeline */
+  .timeline { list-style: none; padding: 0; margin: 0; border-left: 3px solid var(--line); }
+  .timeline li { position: relative; padding: 0 0 26px 26px; }
+  .timeline li::before {
+    content: ""; position: absolute; left: -9px; top: 4px; width: 15px; height: 15px; border-radius: 50%;
+    background: #fff; border: 3px solid var(--orange);
+  }
+  .timeline strong { display: block; color: var(--black); }
+  .timeline span { color: var(--ink-2); font-size: 15px; }
+
+  /* Rules */
+  .rules { margin: 0; padding-left: 20px; }
+  .rules li { margin-bottom: 10px; color: var(--ink-2); }
+
+  /* Form */
+  .form-shell { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .form-shell iframe { width: 100%; min-height: 1400px; border: 0; display: block; }
+  .form-empty { padding: 48px 24px; text-align: center; }
+  .form-empty p { color: var(--ink-2); max-width: 520px; margin: 0 auto 20px; }
+
+  /* FAQ */
+  details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+  summary { font-weight: 700; color: var(--black); cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--orange); font-size: 22px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--ink-2); margin: 12px 0 0; }
+
+  /* Winners */
+  #winners[hidden] { display: none; }
+
+  footer { background: var(--black); color: #8d989f; padding: 40px 0; font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+  footer a { color: #cfd5d9; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="brand-mark">◆</span> FUSION Unboxed</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#products">Products</a>
+      <a href="#access">Get access</a>
+      <a href="#how">How it works</a>
+      <a href="#prizes">Prizes</a>
+      <a href="#rules">Rules</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="#submit">Submit entry</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-meta">
+      <span class="pill hot">Oct 15 – Oct 30</span>
+      <span class="pill">🌍 Open globally</span>
+      <span class="pill">🎁 3 × $25 UiPath Gift Shop vouchers</span>
+    </div>
+    <h1>FUSION Unboxed: <span>build it, break it,</span> tell UiPath.</h1>
+    <p>UiPath announced a lot at FUSION. Don't take anyone's word for what matters. Try it yourself, solve a real problem, and share your honest take with the community.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#submit">Submit your entry →</a>
+      <a class="btn btn-ghost" href="#access">How to get access</a>
+    </div>
+    <div class="countdown" id="countdown" aria-live="polite">
+      <div class="cd-box"><span class="cd-num" data-cd="d">--</span><span class="cd-lbl">Days</span></div>
+      <div class="cd-box"><span class="cd-num" data-cd="h">--</span><span class="cd-lbl">Hours</span></div>
+      <div class="cd-box"><span class="cd-num" data-cd="m">--</span><span class="cd-lbl">Minutes</span></div>
+      <div class="cd-box"><span class="cd-num" data-cd="s">--</span><span class="cd-lbl">Seconds</span></div>
+    </div>
+    <div class="cd-note" id="cd-note">Submissions close Oct 30, 23:59 UTC.</div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="wrap">
+    <span class="eyebrow">What to explore</span>
+    <h2>Four new capabilities from FUSION</h2>
+    <p class="lead">Pick one, or mix several. Your entry can focus on any of these.</p>
+    <div class="grid g4">
+      <div class="card product">
+        <div class="icon">🤝</div>
+        <h3>Delegate</h3>
+        <p>A general-purpose productivity agent for the everyday work of knowledge workers.</p>
+      </div>
+      <div class="card product">
+        <div class="icon">🗺️</div>
+        <h3>Cartographer</h3>
+        <p>Builds and maintains a "Map of Work" from your documents, systems and people.</p>
+      </div>
+      <div class="card product">
+        <div class="icon">🎼</div>
+        <h3>Maestro Flow</h3>
+        <p><strong>Maestro Orchestrate</strong> for long-running business processes, and <strong>Maestro Automate</strong> for high-volume tasks.</p>
+      </div>
+      <div class="card product">
+        <div class="icon">💻</div>
+        <h3>Coding Agents</h3>
+        <p>Build, test and operate UiPath automations using the coding agent of your choice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESS GUIDE -->
+<section id="access" class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Get set up</span>
+    <h2>How to download and access the products</h2>
+    <p class="lead">One account gives you access to all four products.</p>
+
+    <div class="card access-card">
+      <ol class="access-steps">
+        <li>
+          <h3>Create a UiPath Automation Cloud account</h3>
+          <p>Sign up here: <a href="https://bit.ly/47ll8ZO" target="_blank" rel="noopener">bit.ly/47ll8ZO</a></p>
+          <div class="note">⚠️ Use a <strong>brand-new email address</strong> that has never been used to create a UiPath account before.</div>
+        </li>
+        <li>
+          <h3>Start exploring</h3>
+          <p>That's it. Once your account is created, Delegate, Cartographer, Maestro Flow and Coding Agents are all available to you.</p>
+        </li>
+      </ol>
+      <a class="btn btn-primary" href="https://bit.ly/47ll8ZO" target="_blank" rel="noopener">Create your account →</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <span class="eyebrow">How it works</span>
+    <h2>Explore. Build. Share.</h2>
+    <p class="lead">Three steps, and no prior experience with these products is needed.</p>
+    <div class="grid g3" style="margin-bottom:56px">
+      <div class="card"><div class="step-num">1</div><h3>Explore</h3><p>Pick one or more of the four capabilities and create your free account using the steps above.</p></div>
+      <div class="card"><div class="step-num">2</div><h3>Build or try</h3><p>Apply it to a real problem from your work or life. A prototype, demo or thoughtful walkthrough all count.</p></div>
+      <div class="card"><div class="step-num">3</div><h3>Submit</h3><p>Fill in the entry form below before Oct 30. One entry per person.</p></div>
+    </div>
+
+    <h3 style="font-size:24px;margin-bottom:20px">Your entry has three parts</h3>
+    <div class="grid g3">
+      <div class="entry-part"><h3>① The problem</h3><p>What real workflow pain did you pick? Who feels it, and how often?</p></div>
+      <div class="entry-part"><h3>② The solution</h3><p>Which capability did you use, and how? Share proof: a screenshot, short video, repo or walkthrough.</p></div>
+      <div class="entry-part"><h3>③ The honest take</h3><p>What worked? What was confusing or missing? What one idea would you give UiPath?</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMPTS -->
+<section class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Need inspiration?</span>
+    <h2>Questions to get you thinking</h2>
+    <p class="lead">You don't need to answer all of them. Use them as a starting point.</p>
+    <div class="grid g3">
+      <div class="card prompt"><span class="emoji">💡</span><p>Which capability would you actually use, and why?</p></div>
+      <div class="card prompt"><span class="emoji">🛠️</span><p>What real problem could you solve with it?</p></div>
+      <div class="card prompt"><span class="emoji">🤔</span><p>Could it change how you approach automation today?</p></div>
+      <div class="card prompt"><span class="emoji">💬</span><p>What feedback or idea would you share with UiPath?</p></div>
+      <div class="card prompt"><span class="emoji">🚀</span><p>What interesting use case can you come up with?</p></div>
+      <div class="card prompt"><span class="emoji">❓</span><p>What's confusing or missing?</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIZES -->
+<section id="prizes">
+  <div class="wrap">
+    <span class="eyebrow">Prizes</span>
+    <h2>Three winners, three ways to win</h2>
+    <p class="lead">Each winner receives a $25 UiPath Gift Shop voucher. The categories are separate, so first-timers with great insight have just as good a shot as expert builders.</p>
+    <div class="grid g3">
+      <div class="card prize"><span class="big">🚀</span><span class="amt">$25 VOUCHER</span><h3>Best Use Case</h3><p>The most practical or creative real-world application of a FUSION capability.</p></div>
+      <div class="card prize"><span class="big">💬</span><span class="amt">$25 VOUCHER</span><h3>Sharpest Feedback</h3><p>The most specific, useful critique or product idea for UiPath.</p></div>
+      <div class="card prize"><span class="big">✨</span><span class="amt">$25 VOUCHER</span><h3>Wildcard</h3><p>The entry that surprises us: an unexpected angle, a bold experiment or a great story.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- JUDGING + TIMELINE -->
+<section class="alt" id="judging">
+  <div class="wrap">
+    <div class="grid g2" style="gap:48px">
+      <div>
+        <span class="eyebrow">Judging</span>
+        <h2>How entries are scored</h2>
+        <p style="color:var(--ink-2);margin:0 0 28px">Every entry is reviewed personally by the organizer. Winners are chosen on these criteria:</p>
+        <div class="bar-row"><div class="bar-head"><span>Real-world relevance</span><span>30%</span></div><div class="bar"><i style="width:30%"></i></div></div>
+        <div class="bar-row"><div class="bar-head"><span>Depth of exploration</span><span>25%</span></div><div class="bar"><i style="width:25%"></i></div></div>
+        <div class="bar-row"><div class="bar-head"><span>Quality of insight &amp; feedback</span><span>25%</span></div><div class="bar"><i style="width:25%"></i></div></div>
+        <div class="bar-row"><div class="bar-head"><span>Clarity of presentation</span><span>20%</span></div><div class="bar"><i style="width:20%"></i></div></div>
+      </div>
+      <div>
+        <span class="eyebrow">Timeline</span>
+        <h2>Key dates</h2>
+        <ul class="timeline">
+          <li><strong>Oct 15</strong><span>Challenge opens</span></li>
+          <li><strong>Oct 30, 23:59 UTC</strong><span>Submissions close</span></li>
+          <li><strong>Oct 31 – Nov 3</strong><span>Judging</span></li>
+          <li><strong>~Nov 5</strong><span>Winners announced on LinkedIn and on this page</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <div class="wrap">
+    <span class="eyebrow">The fine print</span>
+    <h2>Rules &amp; eligibility</h2>
+    <ul class="rules">
+      <li>Open to anyone, anywhere in the world: developers, builders, analysts and automation practitioners.</li>
+      <li>One entry per person. Your entry may cover one or more of the four capabilities.</li>
+      <li>Entries must be your own original work, submitted between Oct 15 and Oct 30, 23:59 UTC.</li>
+      <li>Do not share confidential, client or personal data in your entry. Use dummy or anonymized data.</li>
+      <li>Winners are selected by the organizer, and that decision is final.</li>
+      <li>Winners' name, role, organization and email will be shared with UiPath for voucher issuance.</li>
+      <li>Feedback and ideas from entries may be shared with UiPath to help improve the products.</li>
+      <li>Prizes are non-transferable and cannot be exchanged for cash.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SUBMIT -->
+<section id="submit" class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Submit</span>
+    <h2>Submit your entry</h2>
+    <p class="lead">Takes about 10 minutes once your build or exploration is done.</p>
+    <div class="form-shell" id="form-shell">
+      <!-- The form is injected by the script below from FORM_EMBED_URL. -->
+      <div class="form-empty">
+        <h3>Submission form opening soon</h3>
+        <p>The entry form will appear here. Check back shortly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WINNERS (unhide on announcement day by removing the hidden attribute) -->
+<section id="winners" hidden>
+  <div class="wrap">
+    <span class="eyebrow">Winners</span>
+    <h2>Congratulations to our winners 🎉</h2>
+    <div class="grid g3">
+      <div class="card"><span class="tag">🚀 Best Use Case</span><h3>Name</h3><p>Role, Organization: one-line summary of the entry.</p></div>
+      <div class="card"><span class="tag">💬 Sharpest Feedback</span><h3>Name</h3><p>Role, Organization: one-line summary of the entry.</p></div>
+      <div class="card"><span class="tag">✨ Wildcard</span><h3>Name</h3><p>Role, Organization: one-line summary of the entry.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap" style="max-width:820px">
+    <span class="eyebrow">FAQ</span>
+    <h2>Questions</h2>
+    <details><summary>Do I need to build a working automation?</summary><p>No. A working prototype is great, but a well-reasoned exploration with screenshots and honest feedback can win too, especially in the Sharpest Feedback category.</p></details>
+    <details><summary>Can I submit as a team?</summary><p>Entries are individual. If you collaborated, submit under one name and credit your teammates in the entry. The voucher goes to the submitter.</p></details>
+    <details><summary>Can I cover more than one product?</summary><p>Yes. Combining capabilities, such as Cartographer feeding Maestro, is encouraged.</p></details>
+    <details><summary>Is this run by UiPath?</summary><p>This is a community-run challenge. UiPath supports it by providing the prize vouchers.</p></details>
+    <details><summary>Can I edit my entry after submitting?</summary><p>Submit again before the deadline and mention in the form that it replaces your earlier entry. The latest one counts.</p></details>
+    <details><summary>Who do I contact with questions?</summary><p>Message the organizer on LinkedIn or comment on the challenge post.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>FUSION Unboxed is a community challenge organized by Parth Doshi.<br>UiPath, Delegate, Cartographer and Maestro are trademarks of UiPath Inc.</div>
+    <div><a href="#top">Back to top ↑</a></div>
+  </div>
+</footer>
+
+<script>
+  // ---- Settings: edit these ----
+  // Paste your Google Form / Tally embed URL here (see FORM-SETUP.md).
+  const FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd5FInYat7hnADbnyYZV7teQDNu9Fk2PMKyr361ckisn9fBUQ/viewform?embedded=true";
+  // Submission deadline (UTC).
+  const DEADLINE = new Date("2026-10-30T23:59:59Z");
+  // -------------------------------
+
+  // Embedded form
+  if (FORM_EMBED_URL) {
+    const shell = document.getElementById("form-shell");
+    shell.innerHTML = "";
+    const f = document.createElement("iframe");
+    f.src = FORM_EMBED_URL;
+    f.title = "Challenge submission form";
+    f.loading = "lazy";
+    shell.appendChild(f);
+  }
+
+  // In-page links: scroll explicitly so they work everywhere (incl. previews and LinkedIn's in-app browser)
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener("click", e => {
+      const target = document.getElementById(a.getAttribute("href").slice(1));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      try { history.replaceState(null, "", a.getAttribute("href")); } catch (_) {}
+    });
+  });
+
+  // Countdown
+  const cdEls = Object.fromEntries([...document.querySelectorAll("[data-cd]")].map(e => [e.dataset.cd, e]));
+  function tick() {
+    const ms = DEADLINE - Date.now();
+    if (ms <= 0) {
+      document.getElementById("countdown").style.display = "none";
+      document.getElementById("cd-note").textContent = "Submissions are closed. Winners will be announced soon!";
+      return;
+    }
+    const s = Math.floor(ms / 1000);
+    cdEls.d.textContent = Math.floor(s / 86400);
+    cdEls.h.textContent = String(Math.floor(s / 3600) % 24).padStart(2, "0");
+    cdEls.m.textContent = String(Math.floor(s / 60) % 60).padStart(2, "0");
+    cdEls.s.textContent = String(s % 60).padStart(2, "0");
+    setTimeout(tick, 1000);
+  }
+  tick();
+</script>
+</body>
+</html>
